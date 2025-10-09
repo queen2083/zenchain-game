@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenChain Dice Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #006400, #32CD32);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            padding: 30px;
+            font-size: 2.5em;
+            font-weight: bold;
+            background-color: rgba(0, 100, 0, 0.8);
+        }
+        .dice-container {
+            margin: 50px 0;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+        .dice {
+            font-size: 5em;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .result {
+            font-size: 2em;
+            margin: 30px 0;
+            color: #FFFFFF;
+        }
+        button {
+            font-size: 1.5em;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #32CD32;
+            color: #006400;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #006400;
+            color: #32CD32;
+        }
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 1.2em;
+            background-color: rgba(0, 100, 0, 0.8);
+        }
+        @keyframes roll {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(90deg); }
+            50% { transform: rotate(180deg); }
+            75% { transform: rotate(270deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .rolling {
+            animation: roll 0.5s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>ZenChain Dice Game</header>
+    <div class="dice-container">
+        <div>
+            <p>Your Dice</p>
+            <div class="dice" id="playerDice">🎲</div>
+        </div>
+        <div>
+            <p>Computer Dice</p>
+            <div class="dice" id="computerDice">🎲</div>
+        </div>
+    </div>
+    <button onclick="rollDice()">Roll Dice</button>
+    <div class="result" id="resultText">Click the button to play!</div>
+    <footer>ID: @aaaa1401._24488</footer>
+    <script>
+        const diceEmojis = ["🎲","⚀","⚁","⚂","⚃","⚄","⚅"];
+        function rollDice() {
+            const playerDice = document.getElementById("playerDice");
+            const computerDice = document.getElementById("computerDice");
+            const resultText = document.getElementById("resultText");
+            playerDice.classList.add("rolling");
+            computerDice.classList.add("rolling");
+            resultText.textContent = "Rolling...";
+            setTimeout(() => {
+                playerDice.classList.remove("rolling");
+                computerDice.classList.remove("rolling");
+                const playerRoll = Math.floor(Math.random() * 6) + 1;
+                const computerRoll = Math.floor(Math.random() * 6) + 1;
+                playerDice.textContent = diceEmojis[playerRoll];
+                computerDice.textContent = diceEmojis[computerRoll];
+                if (playerRoll > computerRoll) {
+                    resultText.textContent = "You Win!";
+                } else if (playerRoll < computerRoll) {
+                    resultText.textContent = "Computer Wins!";
+                } else {
+                    resultText.textContent = "It's a Tie!";
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
